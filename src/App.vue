@@ -3,12 +3,49 @@
   <ul>
     <li v-for="item in items" :key="item.id">{{ item.label }}</li>
   </ul>
+  <input v-model.trim="newItem" type="text" placeholder="enter list" /> <br />
+  {{ newItem }}
+  <br />
+  <!-- using radio buttons -->
+  <!-- Priority:
+  <label>
+    <input type="radio" value="low" v-model="newItemPriority" /> Low
+  </label>
+  <label>
+    <input type="radio" value="high" v-model="newItemPriority" /> High
+  </label>
+  <br />
+  {{ newItemPriority }} -->
+
+  <!-- using select button -->
+  <!-- <label>
+    Priority:
+
+    <select v-model="newItemPriority">
+      <option value="low">Low</option>
+      <option value="high">High</option>
+    </select>
+  </label>
+  <br />
+  {{ newItemPriority }} -->
+
+  <!-- using checkbox -->
+  <label>
+    High Priority :
+    <input type="checkbox" v-model="newItemHighPriority" />
+  </label>
+  <br />
+  {{ newItemHighPriority }}
 </template>
 
 <script setup>
 import { ref } from "vue";
 
 const header = ref("Shopping Cart list");
+const newItem = ref("");
+//const newItemPriority = ref("low");
+const newItemHighPriority = ref(false);
+
 const items = ref([
   { id: 1, label: "10 part hats" },
   { id: 2, label: "10 house bags hats" },
