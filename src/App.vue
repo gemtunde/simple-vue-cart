@@ -1,13 +1,16 @@
 <template>
-  <h1>{{ header }}</h1>
-  <ul>
-    <li v-for="item in items" :key="item.id">{{ item.label }}</li>
-  </ul>
-  <form class="add-item-form" @submit.prevent="saveItem">
+  <div class="header">
+    <h1>{{ header }}</h1>
+
+    <button v-if="editing" class="btn btn-danger" @click="doEdith(false)">
+      Cancel
+    </button>
+    <button v-else class="btn btn-primary" @click="doEdith(true)">
+      Add Item
+    </button>
+  </div>
+  <form class="add-item-form" @submit.prevent="saveItem" v-if="editing">
     <input v-model.trim="newItem" type="text" placeholder="enter list" />
-    <br />
-    {{ newItem }}
-    <br />
     <!-- using radio buttons -->
     <!-- Priority:
   <label>
@@ -32,6 +35,7 @@
   {{ newItemPriority }} -->
 
     <!-- using checkbox -->
+    <br />
     <label>
       High Priority :
       <input type="checkbox" v-model="newItemHighPriority" />
@@ -39,6 +43,10 @@
     <br />
     <button class="btn btn-primary">Save Item</button>
   </form>
+  <ul>
+    <li v-for="item in items" :key="item.id">{{ item.label }}</li>
+  </ul>
+  <p v-if="!items.length">No items here</p>
   <br />
   {{ newItemHighPriority }}
 </template>
@@ -48,17 +56,23 @@ import { ref } from "vue";
 
 const header = ref("Shopping Cart list");
 const newItem = ref("");
+const editing = ref(false);
 //const newItemPriority = ref("low");
 const newItemHighPriority = ref(false);
 
 const items = ref([
-  { id: 1, label: "10 part hats" },
-  { id: 2, label: "10 house bags hats" },
-  { id: 3, label: "1 game shoes and hats" },
+  // { id: 1, label: "10 part hats" },
+  // { id: 2, label: "10 house bags hats" },
+  // { id: 3, label: "1 game shoes and hats" },
 ]);
 
 const saveItem = () => {
   items.value.push({ id: items.value.length + 1, label: newItem.value });
+  newItem.value = "";
+};
+
+const doEdith = (e) => {
+  editing.value = e;
   newItem.value = "";
 };
 </script>
@@ -147,7 +161,12 @@ li input {
   margin: 0.5rem 0;
 }
 
-.add-item-form,
+.add-item-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
 .header {
   display: flex;
   align-items: center;
