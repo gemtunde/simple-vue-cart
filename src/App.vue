@@ -3,10 +3,7 @@
   <ul>
     <li v-for="item in items" :key="item.id">{{ item.label }}</li>
   </ul>
-  <form
-    class="add-item-form"
-    @submit.prevent="items.push({ id: items.length + 1, label: newItem })"
-  >
+  <form class="add-item-form" @submit.prevent="saveItem">
     <input v-model.trim="newItem" type="text" placeholder="enter list" />
     <br />
     {{ newItem }}
@@ -60,8 +57,10 @@ const items = ref([
   { id: 3, label: "1 game shoes and hats" },
 ]);
 
-// const handleSubmit = () =>
-//   items.value.push({ id: items.value.length + 1, label: newItem });
+const saveItem = () => {
+  items.value.push({ id: items.value.length + 1, label: newItem.value });
+  newItem.value = "";
+};
 </script>
 <style scoped>
 body {
