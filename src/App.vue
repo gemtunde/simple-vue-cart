@@ -3,11 +3,16 @@
   <ul>
     <li v-for="item in items" :key="item.id">{{ item.label }}</li>
   </ul>
-  <input v-model.trim="newItem" type="text" placeholder="enter list" /> <br />
-  {{ newItem }}
-  <br />
-  <!-- using radio buttons -->
-  <!-- Priority:
+  <form
+    class="add-item-form"
+    @submit.prevent="items.push({ id: items.length + 1, label: newItem })"
+  >
+    <input v-model.trim="newItem" type="text" placeholder="enter list" />
+    <br />
+    {{ newItem }}
+    <br />
+    <!-- using radio buttons -->
+    <!-- Priority:
   <label>
     <input type="radio" value="low" v-model="newItemPriority" /> Low
   </label>
@@ -17,8 +22,8 @@
   <br />
   {{ newItemPriority }} -->
 
-  <!-- using select button -->
-  <!-- <label>
+    <!-- using select button -->
+    <!-- <label>
     Priority:
 
     <select v-model="newItemPriority">
@@ -29,11 +34,14 @@
   <br />
   {{ newItemPriority }} -->
 
-  <!-- using checkbox -->
-  <label>
-    High Priority :
-    <input type="checkbox" v-model="newItemHighPriority" />
-  </label>
+    <!-- using checkbox -->
+    <label>
+      High Priority :
+      <input type="checkbox" v-model="newItemHighPriority" />
+    </label>
+    <br />
+    <button class="btn btn-primary">Save Item</button>
+  </form>
   <br />
   {{ newItemHighPriority }}
 </template>
@@ -51,6 +59,9 @@ const items = ref([
   { id: 2, label: "10 house bags hats" },
   { id: 3, label: "1 game shoes and hats" },
 ]);
+
+// const handleSubmit = () =>
+//   items.value.push({ id: items.value.length + 1, label: newItem });
 </script>
 <style scoped>
 body {
