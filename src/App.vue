@@ -41,7 +41,9 @@
       <input type="checkbox" v-model="newItemHighPriority" />
     </label>
     <br />
-    <button class="btn btn-primary">Save Item</button>
+    <button :disabled="!newItem.length" class="btn btn-primary">
+      Save Item
+    </button>
   </form>
   <ul>
     <li v-for="item in items" :key="item.id">{{ item.label }}</li>
