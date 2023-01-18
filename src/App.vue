@@ -47,7 +47,7 @@
   </form>
   <ul>
     <li
-      v-for="item in items"
+      v-for="item in reverseItems"
       @click="togglePurchased(item)"
       :key="item.id"
       class="static-class"
@@ -71,13 +71,16 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, computed } from "vue";
 
 const header = ref("Shopping Cart list");
 const newItem = ref("");
 const editing = ref(false);
 //const newItemPriority = ref("low");
 const newItemHighPriority = ref(false);
+const reverseItems = computed(() => {
+  return [...items.value].reverse();
+});
 
 const items = ref([
   { id: 1, label: "10 part hats", purchased: true, highPriority: true },
