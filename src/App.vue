@@ -46,7 +46,24 @@
     </button>
   </form>
   <ul>
-    <li v-for="item in items" :key="item.id">{{ item.label }}</li>
+    <li
+      v-for="item in items"
+      @click="togglePurchased(item)"
+      :key="item.id"
+      class="static-class"
+      :class="{ strikeout: item.purchased, priority: item.highPriority }"
+    >
+      <!-- <li
+      v-for="item in items"
+      :key="item.id"
+      class="static-class"
+      :class="[
+        item.purchased ? 'strikeout' : '',
+        item.highPriority ? 'priority' : '',
+      ]"
+    > -->
+      {{ item.label }}
+    </li>
   </ul>
   <p v-if="!items.length">No items here</p>
   <br />
@@ -63,19 +80,34 @@ const editing = ref(false);
 const newItemHighPriority = ref(false);
 
 const items = ref([
-  // { id: 1, label: "10 part hats" },
-  // { id: 2, label: "10 house bags hats" },
-  // { id: 3, label: "1 game shoes and hats" },
+  { id: 1, label: "10 part hats", purchased: true, highPriority: true },
+  { id: 2, label: "10 house bags hats", purchased: false, highPriority: false },
+  {
+    id: 3,
+    label: "1 game shoes and hats",
+    purchased: true,
+    highPriority: true,
+  },
 ]);
 
 const saveItem = () => {
-  items.value.push({ id: items.value.length + 1, label: newItem.value });
+  items.value.push({
+    id: items.value.length + 1,
+    label: newItem.value,
+    highPriority: newItemHighPriority.value,
+  });
   newItem.value = "";
+  newItemHighPriority.value = "";
+};
+
+const togglePurchased = (item) => {
+  item.purchased = !item.purchased;
 };
 
 const doEdith = (e) => {
   editing.value = e;
   newItem.value = "";
+  newItemHighPriority.value = "";
 };
 </script>
 <style scoped>
