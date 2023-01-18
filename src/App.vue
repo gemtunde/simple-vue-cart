@@ -6,7 +6,7 @@
       Cancel
     </button>
     <button v-else class="btn btn-primary" @click="doEdith(true)">
-      Add Item
+      Add New Item
     </button>
   </div>
   <form class="add-item-form" @submit.prevent="saveItem" v-if="editing">
